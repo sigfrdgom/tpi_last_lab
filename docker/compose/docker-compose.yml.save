@@ -1,0 +1,24 @@
+version: '2.1'
+
+services:
+  mariadb:
+     image: mariadb_tpip1 
+     volumes:
+       - /var/lib/mariaDB/data
+     ports:
+       - "3306:3306"
+     environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      
+
+  glassfish:
+     depends_on:
+        - mariadb:
+          image: glassfish_tpip1
+     ports:
+       - "4848:4848"
+       - "8080:8080"
+       - "8181:8181"
+     links:
+       - mariadb
+
